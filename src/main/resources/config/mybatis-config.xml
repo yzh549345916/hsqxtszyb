@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="config/database.properties">
+        <property name="jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+    </properties>
+    <!-- 环境配置：事务管理器和数据源配置 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}" />
+                <property name="url" value="${jdbc.url}" />
+                <property name="username" value="${jdbc.username}" />
+                <property name="password" value="${jdbc.password}" />
+                <!-- 防止因为网络异常时数据库连接失效，但是连接池米有发现，导致一直使用一个垃圾连接。每隔5分钟测试一次数据库连接是否正常 -->
+                <property name="poolPingEnabled" value="true"/>
+                <property name="poolPingQuery" value="select 1"/>
+                <property name="poolPingConnectionsNotUsedFor" value="300000"/>
+            </dataSource>
+        </environment>
+        <environment id="development2">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.sqlserver.driver}" />
+                <property name="url" value="${jdbc.sqlserver.url}" />
+                <property name="username" value="${jdbc.sqlserver.username}" />
+                <property name="password" value="${jdbc.sqlserver.password}" />
+            </dataSource>
+        </environment>
+        <environment id="development127">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.sqlserver.driver127}" />
+                <property name="url" value="${jdbc.sqlserver.url127}" />
+                <property name="username" value="${jdbc.sqlserver.username127}" />
+                <property name="password" value="${jdbc.sqlserver.password127}" />
+            </dataSource>
+        </environment>
+        <environment id="developmentxzjxh">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.sqlserver.driver127}" />
+                <property name="url" value="${jdbc.sqlserver.urlxzjxh}" />
+                <property name="username" value="${jdbc.sqlserver.username127}" />
+                <property name="password" value="${jdbc.sqlserver.password127}" />
+            </dataSource>
+        </environment>
+    </environments>
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="SQL Server" value="sqlserver" />
+        <property name="MySQL" value="mysql" />
+        <property name="DB2" value="db2" />
+        <property name="Oracle" value="oracle" />
+    </databaseIdProvider>
+    <!-- 映射器 -->
+    <mappers>
+        <mapper resource="mysql.dao.mapper/myMapper.xml" />
+        <mapper resource="mysql.dao.mapper/skMapper.xml" />
+        <mapper resource="mysql.dao.mapper/zhinengwangge127Mapper.xml" />
+        <mapper resource="mysql.dao.mapper/xzjxh127Mapper.xml" />
+    </mappers>
+</configuration>

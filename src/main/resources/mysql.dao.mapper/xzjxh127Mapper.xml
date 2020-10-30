@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--- 命名空间 namespace -->
+<mapper namespace="com.yzh.hsqxtszyb.dao.xzjxhDao">
+    <!-- 结果集映射 -->
+
+    <!-- 查询sql -->
+    <select id="getSqjxhStations"  resultType="com.yzh.hsqxtszyb.model.xzjxh.xzjxhStationModel">
+        SELECT * FROM 社区精细化预报站点 WHERE [Station_levl] = #{Station_levl}
+    </select>
+
+</mapper>

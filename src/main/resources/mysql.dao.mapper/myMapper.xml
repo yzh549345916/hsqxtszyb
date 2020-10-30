@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--- 命名空间 namespace -->
+<mapper namespace="com.yzh.hsqxtszyb.dao.StationDao">
+    <!-- 结果集映射 -->
+    <resultMap id="myStation" type="com.yzh.hsqxtszyb.model.站点信息">
+        <id column="ID" property="ID" />
+        <result column="Name" property="Name" />
+        <result column="Admin_Code" property="Admin_Code" />
+        <result column="Province" property="Province" />
+        <result column="City" property="City" />
+        <result column="Cnty" property="Cnty" />
+        <result column="Station_levl" property="Level" />
+        <result column="Lat" property="Lat" />
+        <result column="Lon" property="Lon" />
+        <result column="Height" property="Height" />
+    </resultMap>
+    <resultMap id="行政区省份ToWeb站点信息" type="com.yzh.hsqxtszyb.model.web站点信息">
+        <id column="province_id" property="ID" />
+        <result column="province_name" property="Name" />
+    </resultMap>
+    <resultMap id="行政区盟市ToWeb站点信息" type="com.yzh.hsqxtszyb.model.web站点信息">
+        <id column="city_id" property="ID" />
+        <result column="city_name" property="Name" />
+    </resultMap>
+    <resultMap id="行政区旗县区ToWeb站点信息" type="com.yzh.hsqxtszyb.model.web站点信息">
+        <id column="county_id" property="ID" />
+        <result column="county_name" property="Name" />
+    </resultMap>
+    <resultMap id="my数值预报" type="com.yzh.hsqxtszyb.model.区台格点数值预报站点Model">
+        <id column="ID" property="ID" />
+        <result column="MyDate" property="MyDate" />
+        <result column="SX" property="SX" />
+        <result column="PRE_3h" property="PRE_3h" />
+        <result column="TEM" property="TEM" />
+        <result column="TMAX" property="TMAX" />
+        <result column="TMIN" property="TMIN" />
+        <result column="WIU10" property="WIU10" />
+        <result column="WIV10" property="WIV10" />
+        <result column="ERH" property="ERH" />
+    </resultMap>
+    <!-- 查询sql -->
+    <select id="获取站点信息" resultMap="myStation">
+        SELECT * FROM Stations
+    </select>
+    <select id="根据省份ID获取省份" resultMap="行政区省份ToWeb站点信息">
+        SELECT max(province_name)province_name,province_id FROM 行政区 Where province_id = #{ID} group by province_id
+    </select>
+    <select id="根据盟市ID获取盟市" resultMap="行政区盟市ToWeb站点信息">
+        SELECT max(city_name)city_name,city_id FROM 行政区 Where city_id = #{ID} group by city_id
+    </select>
+    <select id="根据省份ID获取盟市" resultMap="行政区盟市ToWeb站点信息">
+        SELECT max(city_name)city_name,city_id FROM 行政区 Where province_id = #{ID} group by city_id
+    </select>
+    <select id="根据盟市ID获取旗县区" resultMap="行政区旗县区ToWeb站点信息">
+        SELECT max(county_name)county_name,county_id FROM 行政区 Where city_id = #{ID}  group by county_id
+    </select>
+    <select id="根据地区信息获取站点个数" resultType="int">
+        SELECT COUNT(*) mycount FROM Stations WHERE  Admin_Code LIKE #{ID}
+    </select>
+    <select id="根据地区信息获取站点" resultMap="myStation">
+        SELECT *  FROM Stations WHERE  Admin_Code LIKE #{ID}
+    </select>
+
+    <select id="GetStationByIdAndStationType" resultMap="myStation">
+        SELECT *  FROM Stations WHERE  Admin_Code REGEXP #{ID} AND Station_levl IN ${StationLevlString}
+    </select>
+    <!-- 获取指定ID用户信息 -->
+    <select id="获取指定ID用户信息"  resultType="com.yzh.hsqxtszyb.model.User">
+        SELECT * FROM User WHERE ID = #{ID}
+    </select>
+
+    <select id="根据ID获取站点信息" resultMap="myStation">
+        SELECT *  FROM Stations WHERE  ID IN ${ID}
+    </select>
+    <select id="select_All_Szyb_GD_ZD_StationId_date" resultMap="my数值预报">
+        SELECT *  FROM ${TableName} WHERE  MyDate = #{DateString} AND ID=#{ID} AND purpose=#{Purpose} AND level=#{Level}
+    </select>
+    <select id="select_Szyb_GD_ZD_StationId_date" resultMap="my数值预报">
+        SELECT ID,MyDate,SX,${DataType}  FROM ${TableName} WHERE  MyDate = #{DateString} AND purpose=#{Purpose} AND level=#{Level}
+        <choose>
+            <when test='#{DataType}.toString().contains(",")'>
+                AND ID=#{ID}
+            </when>
+            <otherwise>
+                AND ${DataType} IS NOT NULL AND ${DataType} >-99990 AND ID=#{ID}
+            </otherwise>
+        </choose>
+
+    </select>
+    <select id="select_Szyb_GD_ZD_StationIds_date" resultMap="my数值预报">
+        SELECT ID,MyDate,SX,${DataType}  FROM ${TableName} WHERE  MyDate = #{DateString} AND purpose=#{Purpose} AND level=#{Level}
+        <choose>
+            <when test='#{DataType}.toString().contains(",")'>
+                AND ID IN ${ID}
+            </when>
+            <otherwise>
+                AND ${DataType} IS NOT NULL AND ${DataType} >-99990 AND ID IN ${ID}
+            </otherwise>
+        </choose>
+
+    </select>
+    <select id="select_Szyb_GD_ZD_StationIds_date_SX" resultMap="my数值预报">
+        SELECT ID,MyDate,SX,${DataType}  FROM ${TableName} WHERE  MyDate = #{DateString} AND purpose=#{Purpose} AND level=#{Level} AND SX=#{YbSx}
+        <choose>
+            <when test='#{DataType}.toString().contains(",")'>
+                AND ID IN ${ID}
+            </when>
+            <otherwise>
+                AND ${DataType} IS NOT NULL AND ${DataType} >-99990 AND ID IN ${ID}
+            </otherwise>
+        </choose>
+
+    </select>
+</mapper>
