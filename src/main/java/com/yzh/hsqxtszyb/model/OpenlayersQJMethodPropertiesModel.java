@@ -70,9 +70,10 @@ public class OpenlayersQJMethodPropertiesModel {
     private String ybUnit;
     private String ybName2;
 
-    public OpenlayersQJMethodPropertiesModel(String name, String id, double ybvalue, double ybvalue2, String ybName, String ybUnit, String ybName2, String ybUnit2) {
+    public OpenlayersQJMethodPropertiesModel(String name, String id, int stationLevel, double ybvalue, double ybvalue2, String ybName, String ybUnit, String ybName2, String ybUnit2) {
         this.name = name;
         this.id = id;
+        StationLevel = stationLevel;
         this.ybvalue = ybvalue;
         this.ybvalue2 = ybvalue2;
         this.ybName = ybName;
@@ -80,6 +81,7 @@ public class OpenlayersQJMethodPropertiesModel {
         this.ybName2 = ybName2;
         this.ybUnit2 = ybUnit2;
     }
+
 
     public String getYbName2() {
         return ybName2;

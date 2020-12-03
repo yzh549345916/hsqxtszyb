@@ -11,30 +11,8 @@ import static java.lang.Math.round;
 public class 风向风速转换 {
     public static String GetFXFS(double v, double u) {
         String fxfs = "";
-        double fx = 999.9; //风向
-
-        if ((u > 0) & (v > 0)) {
-            fx = 270 - atan(v / u) * 180 / Math.PI;
-        } else if ((u < 0) & (v > 0)) {
-            fx = 90 - atan(v / u) * 180 / Math.PI;
-        } else if ((u < 0) & (v < 0)) {
-            fx = 90 - atan(v / u) * 180 / Math.PI;
-        } else if ((u > 0) & (v < 0)) {
-            fx = 270 - atan(v / u) * 180 / Math.PI;
-        } else if ((u == 0) & (v > 0)) {
-            fx = 180;
-        } else if ((u == 0) & (v < 0)) {
-            fx = 0;
-        } else if ((u > 0) & (v == 0)) {
-            fx = 270;
-        } else if ((u < 0) & (v == 0)) {
-            fx = 90;
-        } else if ((u == 0) & (v == 0)) {
-            fx = 999.9;
-        }
-
+        double fx=fxjs(v, u);
         //风速是uv分量的平方和
-
         double fs = sqrt(pow(u, 2) + pow(v, 2));
         int intfx = Convert.toInt(round(fx / 45));
         switch (intfx) {
@@ -118,30 +96,8 @@ public class 风向风速转换 {
 
     public static String GetFX(double v, double u) {
         String fxStr = "";
-        double fx = 999.9; //风向
-        if ((u > 0) & (v > 0)) {
-            fx = 270 - atan(v / u) * 180 / Math.PI;
-        } else if ((u < 0) & (v > 0)) {
-            fx = 90 - atan(v / u) * 180 / Math.PI;
-        } else if ((u < 0) & (v < 0)) {
-            fx = 90 - atan(v / u) * 180 / Math.PI;
-        } else if ((u > 0) & (v < 0)) {
-            fx = 270 - atan(v / u) * 180 / Math.PI;
-        } else if ((u == 0) & (v > 0)) {
-            fx = 180;
-        } else if ((u == 0) & (v < 0)) {
-            fx = 0;
-        } else if ((u > 0) & (v == 0)) {
-            fx = 270;
-        } else if ((u < 0) & (v == 0)) {
-            fx = 90;
-        } else if ((u == 0) & (v == 0)) {
-            fx = 999.9;
-        }
-
+        double fx=fxjs(v, u);
         //风速是uv分量的平方和
-
-        double fs = sqrt(pow(u, 2) + pow(v, 2));
         int intfx = Convert.toInt(round(fx / 45));
         switch (intfx) {
             case 0:
@@ -177,11 +133,33 @@ public class 风向风速转换 {
         }
         return fxStr;
     }
-    public static double GetFS(double v, double u) {
-        double fx = 999.9; //风向
-        if(v<-99999 ||u<-99999 ||v>99999||u>99999){
-            return -999999;
+
+    public static double GetFXDouble(double v, double u) {
+        double fx = 0; //风向
+        if ((u > 0) & (v > 0)) {
+            fx = 1.5*Math.PI - atan(v / u);
+        } else if ((u < 0) & (v > 0)) {
+            fx = 0.5*Math.PI- atan(v / u) ;
+        } else if ((u < 0) & (v < 0)) {
+            fx = 0.5*Math.PI - atan(v / u) ;
+        } else if ((u > 0) & (v < 0)) {
+            fx = 1.5*Math.PI - atan(v / u);
+        } else if ((u == 0) & (v > 0)) {
+            fx = Math.PI;
+        } else if ((u == 0) & (v < 0)) {
+            fx = 0;
+        } else if ((u > 0) & (v == 0)) {
+            fx = 1.5*Math.PI;
+        } else if ((u < 0) & (v == 0)) {
+            fx = 0.5*Math.PI;
+        } else if ((u == 0) & (v == 0)) {
+            fx = 0;
         }
+        return fx;
+    }
+
+    private static double fxjs(double v, double u) {
+        double fx = 999.9; //风向
         if ((u > 0) & (v > 0)) {
             fx = 270 - atan(v / u) * 180 / Math.PI;
         } else if ((u < 0) & (v > 0)) {
@@ -201,8 +179,15 @@ public class 风向风速转换 {
         } else if ((u == 0) & (v == 0)) {
             fx = 999.9;
         }
+        return fx;
+    }
 
+    public static double GetFS(double v, double u) {
+        if (v < -99999 || u < -99999 || v > 99999 || u > 99999) {
+            return -999999;
+        }
         //风速是uv分量的平方和
         return sqrt(pow(u, 2) + pow(v, 2));
     }
+
 }

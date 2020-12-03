@@ -191,9 +191,6 @@ public class SzybDataService {
         return myStations;
     }
 
-    public void cs(){
-        GetSzybByTimeAndStionIDs("53463,53464","0",1598875200000L);
-    }
     public List<数值预报查询Model> GetSzybByTimeAndStionIDs(String ids, String dataTypeId, long timespan) {
         DateTime sdate = DateUtil.date(timespan);
 

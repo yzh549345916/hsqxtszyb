@@ -68,6 +68,9 @@
     <select id="GetStationByIdAndStationType" resultMap="myStation">
         SELECT *  FROM Stations WHERE  Admin_Code REGEXP #{ID} AND Station_levl IN ${StationLevlString}
     </select>
+    <select id="GetRmapsStationByIdAndStationType" resultMap="myStation">
+        SELECT *  FROM RmapsStations WHERE  Admin_Code REGEXP #{ID} AND Station_levl IN ${StationLevlString}
+    </select>
     <!-- 获取指定ID用户信息 -->
     <select id="获取指定ID用户信息"  resultType="com.yzh.hsqxtszyb.model.User">
         SELECT * FROM User WHERE ID = #{ID}
@@ -105,6 +108,18 @@
     </select>
     <select id="select_Szyb_GD_ZD_StationIds_date_SX" resultMap="my数值预报">
         SELECT ID,MyDate,SX,${DataType}  FROM ${TableName} WHERE  MyDate = #{DateString} AND purpose=#{Purpose} AND level=#{Level} AND SX=#{YbSx}
+        <choose>
+            <when test='#{DataType}.toString().contains(",")'>
+                AND ID IN ${ID}
+            </when>
+            <otherwise>
+                AND ${DataType} IS NOT NULL AND ${DataType} >-99990 AND ID IN ${ID}
+            </otherwise>
+        </choose>
+
+    </select>
+    <select id="select_Rmaps_GD_ZD_StationIds_date_SX" resultType="com.yzh.hsqxtszyb.model.Rmaps格点数值预报站点Model">
+        SELECT ID,MyDate,SX,${DataType}  FROM ${TableName} WHERE  MyDate = #{DateString}  AND SX=#{YbSx}
         <choose>
             <when test='#{DataType}.toString().contains(",")'>
                 AND ID IN ${ID}

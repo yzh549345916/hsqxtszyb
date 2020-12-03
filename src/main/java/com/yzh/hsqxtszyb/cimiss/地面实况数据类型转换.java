@@ -55,6 +55,9 @@ public  class 地面实况数据类型转换 {
             case 8:
                 myString = "最低气温";
                 break;
+            case 1900:
+                myString = "能见度";
+                break;
             default:
                 myString = "气温";
                 break;
@@ -84,6 +87,9 @@ public  class 地面实况数据类型转换 {
                 break;
             case 8:
                 myString = "℃";
+                break;
+            case 1900:
+                myString = "m";
                 break;
             default:
                 myString = "℃";
@@ -120,5 +126,91 @@ public  class 地面实况数据类型转换 {
                 break;
         }
         return myString;
+    }
+    public static String Rmaps预报数据库地面实况数据类型转换(int paramType,int levelType,double level) {
+        if(paramType==0){
+            if(levelType==1){
+                return "TEM_surface";
+            }else if(levelType==100){
+                if(level==50000){
+                    return "TEM_isobaric_500";
+                }else if(level==70000){
+                    return "TEM_isobaric_700";
+                }else if(level==85000){
+                    return "TEM_isobaric_850";
+                }
+            }else if(levelType==103){
+                return "TEM";
+            }
+        }
+        else if(paramType==2){
+            return "PRE";
+        }
+        else if(paramType==4){
+            if(levelType==100){
+                if(level==50000){
+                    return "WIU10_isobaric_500";
+                }else if(level==70000){
+                    return "WIU10_isobaric_700";
+                }else if(level==85000){
+                    return "WIU10_isobaric_850";
+                }
+            }else if(levelType==103){
+                return "WIU10,WIV10";
+            }
+        }
+        else if(paramType==5){
+            if(levelType==100){
+                if(level==50000){
+                    return "WIV10_isobaric_500";
+                }else if(level==70000){
+                    return "WIV10_isobaric_700";
+                }else if(level==85000){
+                    return "WIV10_isobaric_850";
+                }
+            }else if(levelType==103){
+                return "WIV10";
+            }
+        }
+        else if(paramType==1900){
+            return "VIS";
+        }
+        else if(paramType==603){
+            return "Low_cloud";
+        }
+        else if(paramType==604){
+            return "Medium_cloud";
+        }
+        else if(paramType==605){
+            return "High_cloud";
+        }
+        else if(paramType==301){
+            return "PRS";
+        }
+        else if(paramType==1){
+            if(levelType==100){
+                if(level==50000){
+                    return "RHU_isobaric_500";
+                }else if(level==70000){
+                    return "RHU_isobaric_700";
+                }else if(level==85000){
+                    return "RHU_isobaric_850";
+                }
+            }else if(levelType==103){
+                return "RHU";
+            }
+        }
+        else if(paramType==305){
+            if(levelType==100){
+                if(level==50000){
+                    return "Geopotential_height_500";
+                }else if(level==70000){
+                    return "Geopotential_height_700";
+                }else if(level==85000){
+                    return "Geopotential_height_850";
+                }
+            }
+        }
+        return "";
     }
 }

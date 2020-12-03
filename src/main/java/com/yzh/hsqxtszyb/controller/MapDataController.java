@@ -22,7 +22,7 @@ public class MapDataController {
     }
     @CrossOrigin
     @GetMapping("/api/getzdybByTypeStationsTimeSx")
-    public OpenlayersQJMethodBaseModel getzdybByTypeStationsTimeSx(@RequestParam("YBType") String YBType, @RequestParam("DataTypeID") String DataTypeID, @RequestParam("StationTye") String StationTye, @RequestParam("DQID") String DQID, @RequestParam("times") long times,@RequestParam("YbSx") int YbSx) {
-        return mapService.获取站点预报数据(YBType,DataTypeID,StationTye,DQID,times,YbSx);
+    public OpenlayersQJMethodBaseModel getzdybByTypeStationsTimeSx(@RequestParam("YBType") String YBType, @RequestParam("DataTypeID") String DataTypeID, @RequestParam("StationTye") String StationTye, @RequestParam("DQID") String DQID, @RequestParam("times") long times,@RequestParam("YbSx") int YbSx,@RequestParam("stationlevelType") int stationlevelType,@RequestParam("stationlevel") double stationlevel) {
+        return mapService.获取站点预报数据(YBType,DataTypeID,StationTye,DQID,times,YbSx,stationlevelType,stationlevel);
     }
 }

@@ -122,6 +122,21 @@ public class StationDaoImpl extends BaseDaoImpl implements StationDao {
         }
         return myStations;
     }
+    public List<站点信息> 根据地区信息站点类型获取Rmaps站点(web站点检索Model data) {
+        SqlSession sqlSession = getSqlSession();
+        List<站点信息> myStations=new ArrayList<>();
+        try {
+            //data.setID(data.getID()+"%");
+            data.setStationLevlString("("+data.getStationLevlString()+")");
+            myStations = sqlSession.selectList("com.yzh.hsqxtszyb.dao.StationDao.GetRmapsStationByIdAndStationType", data);
+        } catch (Exception e){
+            e.getMessage();
+        }
+        finally {
+            sqlSession.close();
+        }
+        return myStations;
+    }
     @Override
     public List<web站点信息> 根据盟市ID获取旗县区(web站点信息 myStation) {
         SqlSession sqlSession = getSqlSession();
@@ -209,6 +224,23 @@ public class StationDaoImpl extends BaseDaoImpl implements StationDao {
             }
             data.setID(sb1.substring(0,sb1.length()-1)+")");
             mydatas = sqlSession.selectList("com.yzh.hsqxtszyb.dao.StationDao.select_Szyb_GD_ZD_StationIds_date_SX", data);
+        } finally {
+            sqlSession.close();
+        }
+        return mydatas;
+    }
+    public List<Rmaps格点数值预报站点Model> 根据站点列表预报时效获取Rmaps数值预报站点预报(数值预报检索Model data) {
+        SqlSession sqlSession = getSqlSession();
+        List<Rmaps格点数值预报站点Model> mydatas;
+        try {
+            StringBuilder sb1=new StringBuilder();
+            sb1.append("(");
+            for (String myid:data.getID().split(",")
+            ) {
+                sb1.append("'").append(myid).append("'").append(",");
+            }
+            data.setID(sb1.substring(0,sb1.length()-1)+")");
+            mydatas = sqlSession.selectList("com.yzh.hsqxtszyb.dao.StationDao.select_Rmaps_GD_ZD_StationIds_date_SX", data);
         } finally {
             sqlSession.close();
         }

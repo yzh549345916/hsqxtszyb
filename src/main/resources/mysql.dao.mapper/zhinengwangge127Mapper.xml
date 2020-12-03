@@ -8,8 +8,8 @@
     <!-- 结果集映射 -->
 
     <!-- 查询sql -->
-    <select id="getSK"  resultType="com.yzh.hsqxtszyb.model.SK_Tem_Hour_Model">
-        SELECT * FROM SK_Tem_Hour WHERE [StationID] = #{StationID} AND [DateTime] &gt;= #{StartTime} AND [DateTime] &lt;= #{EndTime}
+    <select id="getGjZNWG3h240"  resultType="com.yzh.hsqxtszyb.model.ZNWG.GJZNWGDataModel">
+        SELECT * FROM 全国智能网格预报服务产品3h240 WHERE [StatioID] IN (${StatioID}) AND SC = #{SC} AND SX &gt;= #{MinSX} AND SX &lt;= #{MaxSX} AND Date=#{Date}
     </select>
 
 
