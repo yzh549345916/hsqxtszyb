@@ -33,10 +33,18 @@
                 <property name="url" value="${jdbc.sqlserver.url}" />
                 <property name="username" value="${jdbc.sqlserver.username}" />
                 <property name="password" value="${jdbc.sqlserver.password}" />
+                <!-- 在被强制返回之前，池中连接被检出（checked out）时间，默认值：20000 毫秒（即 20 秒） -->
+                <property name="poolMaximumCheckoutTime" value="20000" />
+                <!-- 这是一个底层设置，如果获取连接花费的相当长的时间，它会给连接池打印状态日志并重新尝试获取一个连接（避免在误配置的情况下一直安静的失败），默认值：20000
+                                    毫秒（即 20 秒）。 -->
+                <property name="poolTimeToWait" value="20000" />
+                <!-- 任意时间可能存在的空闲连接数 默认是5,最好设置为0,否则可能会崩溃掉 -->
+                <property name="poolMaximumIdleConnections" value="0" />
                 <!-- 防止因为网络异常时数据库连接失效，但是连接池米有发现，导致一直使用一个垃圾连接。每隔5分钟测试一次数据库连接是否正常 -->
                 <property name="poolPingEnabled" value="true"/>
                 <property name="poolPingQuery" value="select 1"/>
                 <property name="poolPingConnectionsNotUsedFor" value="300000"/>
+
             </dataSource>
         </environment>
         <environment id="development127">
@@ -46,6 +54,15 @@
                 <property name="url" value="${jdbc.sqlserver.url127}" />
                 <property name="username" value="${jdbc.sqlserver.username127}" />
                 <property name="password" value="${jdbc.sqlserver.password127}" />
+                <!-- 在被强制返回之前，池中连接被检出（checked out）时间，默认值：20000 毫秒（即 20 秒） -->
+                <property name="poolMaximumCheckoutTime" value="20000" />
+                <!-- 这是一个底层设置，如果获取连接花费的相当长的时间，它会给连接池打印状态日志并重新尝试获取一个连接（避免在误配置的情况下一直安静的失败），默认值：20000
+                                    毫秒（即 20 秒）。 -->
+                <property name="poolTimeToWait" value="20000" />
+                <!-- 任意时间可能存在的空闲连接数 默认是5,最好设置为0,否则可能会崩溃掉 -->
+                <property name="poolMaximumIdleConnections" value="0" />
+
+
                 <!-- 防止因为网络异常时数据库连接失效，但是连接池米有发现，导致一直使用一个垃圾连接。每隔5分钟测试一次数据库连接是否正常 -->
                 <property name="poolPingEnabled" value="true"/>
                 <property name="poolPingQuery" value="select 1"/>
@@ -59,6 +76,33 @@
                 <property name="url" value="${jdbc.sqlserver.urlxzjxh}" />
                 <property name="username" value="${jdbc.sqlserver.username127}" />
                 <property name="password" value="${jdbc.sqlserver.password127}" />
+                <!-- 在被强制返回之前，池中连接被检出（checked out）时间，默认值：20000 毫秒（即 20 秒） -->
+                <property name="poolMaximumCheckoutTime" value="20000" />
+                <!-- 这是一个底层设置，如果获取连接花费的相当长的时间，它会给连接池打印状态日志并重新尝试获取一个连接（避免在误配置的情况下一直安静的失败），默认值：20000
+                                    毫秒（即 20 秒）。 -->
+                <property name="poolTimeToWait" value="20000" />
+                <!-- 任意时间可能存在的空闲连接数 默认是5,最好设置为0,否则可能会崩溃掉 -->
+                <property name="poolMaximumIdleConnections" value="0" />
+                <!-- 防止因为网络异常时数据库连接失效，但是连接池米有发现，导致一直使用一个垃圾连接。每隔5分钟测试一次数据库连接是否正常 -->
+                <property name="poolPingEnabled" value="true"/>
+                <property name="poolPingQuery" value="select 1"/>
+                <property name="poolPingConnectionsNotUsedFor" value="300000"/>
+            </dataSource>
+        </environment>
+        <environment id="developmentEC">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.sqlserver.driver}" />
+                <property name="url" value="${jdbc.sqlserver.urlECSurface}" />
+                <property name="username" value="${jdbc.sqlserver.username}" />
+                <property name="password" value="${jdbc.sqlserver.password}" />
+                <!-- 在被强制返回之前，池中连接被检出（checked out）时间，默认值：20000 毫秒（即 20 秒） -->
+                <property name="poolMaximumCheckoutTime" value="20000" />
+                <!-- 这是一个底层设置，如果获取连接花费的相当长的时间，它会给连接池打印状态日志并重新尝试获取一个连接（避免在误配置的情况下一直安静的失败），默认值：20000
+                                    毫秒（即 20 秒）。 -->
+                <property name="poolTimeToWait" value="20000" />
+                <!-- 任意时间可能存在的空闲连接数 默认是5,最好设置为0,否则可能会崩溃掉 -->
+                <property name="poolMaximumIdleConnections" value="0" />
                 <!-- 防止因为网络异常时数据库连接失效，但是连接池米有发现，导致一直使用一个垃圾连接。每隔5分钟测试一次数据库连接是否正常 -->
                 <property name="poolPingEnabled" value="true"/>
                 <property name="poolPingQuery" value="select 1"/>
@@ -79,5 +123,6 @@
         <mapper resource="mysql.dao.mapper/skMapper.xml" />
         <mapper resource="mysql.dao.mapper/zhinengwangge127Mapper.xml" />
         <mapper resource="mysql.dao.mapper/xzjxh127Mapper.xml" />
+        <mapper resource="mysql.dao.mapper/EcSurfaceMapper.xml" />
     </mappers>
 </configuration>

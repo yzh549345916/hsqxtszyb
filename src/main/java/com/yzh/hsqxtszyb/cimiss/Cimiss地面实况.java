@@ -104,6 +104,7 @@ public class Cimiss地面实况 {
         //必选参数
         params.put("dataCode", "SURF_CHN_MUL_HOR") ; //资料代码
         params.put("elements", "Station_Id_C,Station_Name,Datetime,"+dataType) ;//检索要素：站号、站名、小时降水、气压、相对湿度、能见度、2分钟平均风速、2分钟风向
+        params.put("orderBy", "Datetime:asc") ; //时间排序
         String myDateFormat="yyyyMMddHH0000";
         StringBuilder sb=new StringBuilder();
         for (Date myDate:szDate
@@ -162,6 +163,7 @@ public class Cimiss地面实况 {
         //必选参数
         params.put("dataCode", "SURF_CHN_MUL_HOR") ; //资料代码
         params.put("elements", "Station_Id_C,Station_Name,Datetime,TEM_Max,TEM_Min") ;//检索要素：站号、站名、小时降水、气压、相对湿度、能见度、2分钟平均风速、2分钟风向
+        params.put("orderBy", "Datetime:asc") ; //时间排序
         String myDateFormat="yyyyMMddHH0000";
         StringBuilder sb=new StringBuilder();
         for (Date myDate:szDate

@@ -213,4 +213,181 @@ public  class 地面实况数据类型转换 {
         }
         return "";
     }
+    public static String EC预报数据库地面实况数据类型转换(int paramType,int levelType,double level) {
+        switch (paramType) {
+            case 0:
+                if (levelType == 1) {
+                    return "SKTE";
+                } else if (levelType == 100) {
+                    if (level == 50000) {
+                        return "";
+                    } else if (level == 70000) {
+                        return "";
+                    } else if (level == 85000) {
+                        return "";
+                    }
+                } else if (levelType == 103) {
+                    return "TEF0";
+                }
+                break;
+            case 235:
+                return "SKTE";//表面温度
+            case 167:
+                return "TEF0";//2米气温
+            case 121:
+                return "MN2T6";//过去6小时2米最低温度
+            case 122:
+                return "MX2T6";//过去6小时2米最高温度
+            case 228027:
+                return "MN2T3";//过去3小时2米最低温度
+            case 34:
+                return "SST";//海表温度
+            case 4:
+                return "WIU10,WIV10";
+            case 4100:
+                return "WIU100,WIV100";
+            case 165:
+                return "WIU10";//10米风的u分量
+            case 166:
+                return "WIV10";//10米风的v分量
+            case 228246:
+                return "WIU100";//100米风的u分量
+            case 228247:
+                return "WIV100";//100米风的v分量
+            case 228028:
+                return "GUST10T3";//过去3小时10米阵风
+            case 123:
+                return "GUST10T6";//过去6小时10米阵风
+            case 143:
+                return "CPE";//对流性降水
+            case 228:
+                return "TPE";//总降水量
+            case 142:
+                return "LPE";//大尺度降水
+            case 260015:
+                return "PRTY";//降水类型
+            case 141:
+                return "SDE";//雪深
+            case 33:
+                return "SNDE";//雪密度
+            case 144:
+                return "TTSP";//降雪量
+            case 168:
+                return "DPT";//露点温度
+            case 151:
+                return "GSSP";//海平面气压（相对于海面）
+            case 3020:
+                return "VIS";//能见度
+            case 186:
+                return "GRLCC";//低云量
+            case 164:
+                return "GRTCC";//总云量
+            default:
+                return "";
+        }
+        return "";
+    }
+    public static String EC地面数据类型文字描述转换(int paramType) {
+        switch (paramType) {
+            case 0:
+            case 167:
+                return "2米气温";
+            case 235:
+                return "表面温度";//
+            case 121:
+                return "过去6小时2米最低温度";//
+            case 122:
+                return "过去6小时2米最高温度";//
+            case 228027:
+                return "过去3小时2米最低温度";//
+            case 34:
+                return "海表温度";//
+            case 4:
+                return "10米风";//
+            case 4100:
+                return "100米风";//
+            case 165:
+                return "10米风的u分量";//
+            case 166:
+                return "10米风的v分量";//
+            case 228246:
+                return "100米风的u分量";//
+            case 228247:
+                return "100米风的v分量";//
+            case 228028:
+                return "过去3小时10米阵风";//
+            case 123:
+                return "过去6小时10米阵风";//
+            case 143:
+                return "对流性降水";//
+            case 228:
+                return "总降水量";//
+            case 142:
+                return "大尺度降水";//
+            case 260015:
+                return "降水类型";//
+            case 141:
+                return "雪深";//
+            case 33:
+                return "雪密度";//
+            case 144:
+                return "降雪量";//
+            case 168:
+                return "露点温度";//
+            case 151:
+                return "海平面气压（相对于海面）";//
+            case 3020:
+                return "能见度";//
+            case 186:
+                return "低云量";//
+            case 164:
+                return "总云量";//
+            default:
+                return "";
+        }
+    }
+    public static String EC预报数据类型单位转换(int paramType) {
+        switch (paramType) {
+            case 0:
+            case 167:
+            case 235:
+            case 121:
+            case 122:
+            case 228027:
+            case 34:
+            case 168://露点温度
+                return "℃";
+            case 4:
+            case 4100:
+            case 165:
+            case 166:
+            case 228246:
+            case 228247:
+            case 228028:
+            case 123:
+                return "m/s";//
+            case 143:
+            case 228:
+            case 142:
+                return "mm";//
+            case 260015:
+                return "";//降水类型
+            case 141:
+            case 144:
+                return "m";//
+            case 33:
+                return "kg/m³";//
+
+            case 151:
+                return "Pa";//
+            case 3020:
+                return "m";//
+            case 186:
+                return "";//低云量
+            case 164:
+                return "";//总云量
+            default:
+                return "";
+        }
+    }
 }

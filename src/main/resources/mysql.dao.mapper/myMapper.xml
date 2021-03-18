@@ -130,4 +130,15 @@
         </choose>
 
     </select>
+    <select id="select_Rmaps_GD_ZD_StationIds_date" resultType="com.yzh.hsqxtszyb.model.Rmaps格点数值预报站点Model">
+        SELECT ID,MyDate,SX,${DataType}  FROM ${TableName} WHERE  MyDate = #{DateString}
+        <choose>
+            <when test='#{DataType}.toString().contains(",")'>
+                AND ID IN ${ID}
+            </when>
+            <otherwise>
+                AND ${DataType} IS NOT NULL AND ${DataType} >-99990 AND ID IN ${ID}
+            </otherwise>
+        </choose>
+    </select>
 </mapper>

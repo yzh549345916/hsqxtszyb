@@ -35,7 +35,13 @@ public class 数值预报检索Model {
         YbSx = ybSx;
         TableName = tableName;
     }
+    public 数值预报检索Model(String ID, String dateString, String dataType,  String tableName) {
+        this.ID = ID;
+        DateString = dateString;
+        DataType = dataType;
 
+        TableName = tableName;
+    }
     public 数值预报检索Model(String ID, String dateString, String dataType, int purpose, int level, String tableName) {
         this.ID = ID;
         DateString = dateString;

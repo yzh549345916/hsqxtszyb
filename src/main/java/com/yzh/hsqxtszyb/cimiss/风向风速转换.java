@@ -189,5 +189,50 @@ public class 风向风速转换 {
         //风速是uv分量的平方和
         return sqrt(pow(u, 2) + pow(v, 2));
     }
-
+    public static String GetFL(double v, double u) {
+        double fs=GetFS(v,u);
+        String fxfs="";
+        if (fs >= 0 && fs <= 0.2) {
+            fxfs += "0级";
+        } else if (fs >= 0.3 && fs <= 1.5) {
+            fxfs += "1级";
+        } else if (fs >= 1.6 && fs <= 3.3) {
+            fxfs += "2级";
+        } else if (fs >= 3.4 && fs <= 5.4) {
+            fxfs += "3级";
+        } else if (fs >= 5.5 && fs <= 7.9) {
+            fxfs += "4级";
+        } else if (fs >= 8 && fs <= 10.7) {
+            fxfs += "5级";
+        } else if (fs >= 10.8 && fs <= 13.8) {
+            fxfs += "6级";
+        } else if (fs >= 13.9 && fs <= 17.1) {
+            fxfs += "7级";
+        } else if (fs >= 17.2 && fs <= 20.7) {
+            fxfs += "8级";
+        } else if (fs >= 20.8 && fs <= 24.4) {
+            fxfs += "9级";
+        } else if (fs >= 24.5 && fs <= 28.4) {
+            fxfs += "10级";
+        } else if (fs >= 28.5 && fs <= 32.6) {
+            fxfs += "11级";
+        } else if (fs >= 32.7 && fs <= 36.9) {
+            fxfs += "12级";
+        } else if (fs >= 37 && fs <= 41.4) {
+            fxfs += "13级";
+        } else if (fs >= 41.5 && fs <= 46.1) {
+            fxfs += "14级";
+        } else if (fs >= 46.2 && fs <= 50.9) {
+            fxfs += "15级";
+        } else if (fs >= 51 && fs <= 56) {
+            fxfs += "16级";
+        } else if (fs >= 56.1 && fs <= 61.2) {
+            fxfs += "17级";
+        } else if (fs >= 61.3) {
+            fxfs += "17级以上";
+        } else {
+            fxfs += "3级";
+        }
+        return fxfs;
+    }
 }

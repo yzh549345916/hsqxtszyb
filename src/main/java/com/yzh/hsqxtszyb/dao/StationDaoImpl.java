@@ -1,8 +1,12 @@
 package com.yzh.hsqxtszyb.dao;
 
 import com.yzh.hsqxtszyb.model.*;
+import com.yzh.hsqxtszyb.model.EC.ECDataModel;
+import com.yzh.hsqxtszyb.util.SqlSessionFactoryUtil;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -246,6 +250,23 @@ public class StationDaoImpl extends BaseDaoImpl implements StationDao {
         }
         return mydatas;
     }
+    public List<Rmaps格点数值预报站点Model> 根据站点列表预报获取Rmaps数值预报站点预报(数值预报检索Model data) {
+        SqlSession sqlSession = getSqlSession();
+        List<Rmaps格点数值预报站点Model> mydatas;
+        try {
+            StringBuilder sb1=new StringBuilder();
+            sb1.append("(");
+            for (String myid:data.getID().split(",")
+            ) {
+                sb1.append("'").append(myid).append("'").append(",");
+            }
+            data.setID(sb1.substring(0,sb1.length()-1)+")");
+            mydatas = sqlSession.selectList("com.yzh.hsqxtszyb.dao.StationDao.select_Rmaps_GD_ZD_StationIds_date", data);
+        } finally {
+            sqlSession.close();
+        }
+        return mydatas;
+    }
     public List<区台格点数值预报站点Model> 获取区台格点数值预报全部类型站点预报(数值预报检索Model data) {
         SqlSession sqlSession = getSqlSession();
         List<区台格点数值预报站点Model> mydatas = new ArrayList<>();
@@ -257,4 +278,63 @@ public class StationDaoImpl extends BaseDaoImpl implements StationDao {
         }
         return mydatas;
     }
+
+    public List<ECDataModel> 根据站点列表预报获取EC数值预报站点预报(数值预报检索Model data){
+        SqlSessionFactory sqlSessionFactoryEc = SqlSessionFactoryUtil.getECFactory();
+        SqlSession sessionEc = sqlSessionFactoryEc.openSession();
+        EcSurfaceDao ecDao = sessionEc.getMapper(EcSurfaceDao.class);
+        StringBuilder sb1=new StringBuilder();
+        sb1.append("(");
+        for (String myid:data.getID().split(",")
+        ) {
+            sb1.append("'").append(myid).append("'").append(",");
+        }
+        data.setID(sb1.substring(0,sb1.length()-1)+")");
+        List<ECDataModel> datas ;
+        try{
+           datas=ecDao.getECSurface(data.getTableName(),data.getID(),data.getDateString(),data.getDataType());
+        }
+        finally {
+            sessionEc.close();
+        }
+        return datas;
+    }
+    public List<站点信息> 根据地区信息站点类型获取EC站点(web站点检索Model data) {
+        List<站点信息> myStations=new ArrayList<>();
+        SqlSessionFactory sqlSessionFactoryEc = SqlSessionFactoryUtil.getECFactory();
+        SqlSession sessionEc = sqlSessionFactoryEc.openSession();
+        try {
+
+            EcSurfaceDao ecDao = sessionEc.getMapper(EcSurfaceDao.class);
+            myStations= ecDao.GetECStationByIdAndStationType(data.getID(),data.getStationLevlString());
+        } catch (Exception e){
+            e.getMessage();
+        }
+        finally {
+            sessionEc.close();
+        }
+        return myStations;
+    }
+    public List<ECDataModel> 根据站点列表预报时效获取EC数值预报站点预报(数值预报检索Model data){
+        SqlSessionFactory sqlSessionFactoryEc = SqlSessionFactoryUtil.getECFactory();
+        SqlSession sessionEc = sqlSessionFactoryEc.openSession();
+
+        EcSurfaceDao ecDao = sessionEc.getMapper(EcSurfaceDao.class);
+        StringBuilder sb1=new StringBuilder();
+        sb1.append("(");
+        for (String myid:data.getID().split(",")
+        ) {
+            sb1.append("'").append(myid).append("'").append(",");
+        }
+        data.setID(sb1.substring(0,sb1.length()-1)+")");
+        List<ECDataModel> datas ;
+        try{
+            datas=ecDao.getECSurfaceBySXIdsDataType(data.getTableName(),data.getID(), data.getDateString(), data.getDataType(),data.getYbSx());
+        }
+        finally {
+            sessionEc.close();
+        }
+        return datas;
+    }
+
 }

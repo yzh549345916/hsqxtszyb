@@ -1,8 +1,6 @@
 package com.yzh.hsqxtszyb.controller;
 
-import com.yzh.hsqxtszyb.model.ZNWG.GJZNWGDataModel;
 import com.yzh.hsqxtszyb.model.ZNWG.国家智能网格查询Model;
-import com.yzh.hsqxtszyb.model.xzjxh.xzjxhStationModel;
 import com.yzh.hsqxtszyb.service.ZhiNengWangGeservice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

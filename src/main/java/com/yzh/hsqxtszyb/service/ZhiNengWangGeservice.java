@@ -4,7 +4,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.ReflectUtil;
+
 import com.yzh.hsqxtszyb.cimiss.风向风速转换;
 import com.yzh.hsqxtszyb.dao.xzjxhDao;
 import com.yzh.hsqxtszyb.dao.zhiNengWangGeDao;
@@ -14,23 +14,23 @@ import com.yzh.hsqxtszyb.model.xzjxh.xzjxhStationModel;
 import com.yzh.hsqxtszyb.util.SqlSessionFactoryUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.junit.Test;
+
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ZhiNengWangGeservice {
-    SqlSessionFactory sqlSessionFactoryXzjxh = SqlSessionFactoryUtil.getXzjxhSessionFactory();
-    SqlSession sessionXzjxh = sqlSessionFactoryXzjxh.openSession();
-    xzjxhDao myxzjxhDao = sessionXzjxh.getMapper(xzjxhDao.class);
-    SqlSessionFactory sqlSessionFactoryZnwg = SqlSessionFactoryUtil.getZNWGSessionFactory();
-    SqlSession sessionZnwg = sqlSessionFactoryZnwg.openSession();
-    zhiNengWangGeDao myZnwgDao = sessionZnwg.getMapper(zhiNengWangGeDao.class);
+
 
     public List<国家智能网格查询Model> 获取环保局智能网格数据(long ybDateTimespan, long qbDateTimespan) {
+        SqlSessionFactory sqlSessionFactoryXzjxh = SqlSessionFactoryUtil.getXzjxhSessionFactory();
+        SqlSession sessionXzjxh = sqlSessionFactoryXzjxh.openSession();
+        xzjxhDao myxzjxhDao = sessionXzjxh.getMapper(xzjxhDao.class);
+        SqlSessionFactory sqlSessionFactoryZnwg = SqlSessionFactoryUtil.getZNWGSessionFactory();
+        SqlSession sessionZnwg = sqlSessionFactoryZnwg.openSession();
+        zhiNengWangGeDao myZnwgDao = sessionZnwg.getMapper(zhiNengWangGeDao.class);
         List<国家智能网格查询Model> cxDatas = new ArrayList<>();
 
         int timeSpHour = (int) ((ybDateTimespan - qbDateTimespan) / 1000 / 60 / 60);

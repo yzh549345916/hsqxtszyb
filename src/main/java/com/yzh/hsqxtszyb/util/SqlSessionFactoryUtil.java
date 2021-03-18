@@ -10,7 +10,10 @@ import java.io.InputStream;
 public class SqlSessionFactoryUtil {
 
     private static SqlSessionFactory sqlSessionFactory;
-
+    private static SqlSessionFactory sqlserverSessionFactory;
+    private static SqlSessionFactory sqlXzjxhSessionFactory;
+    private static SqlSessionFactory sqlZNWGSessionFactory;
+    private static SqlSessionFactory sqlECFactory;
     /**
      * 每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为中心的。
      * SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。
@@ -34,37 +37,57 @@ public class SqlSessionFactoryUtil {
         return sqlSessionFactory;
     }
     public static SqlSessionFactory getSqlServerSessionFactory() {
-        SqlSessionFactory sqlServerSessionFactory = null;
+        if (sqlserverSessionFactory != null) {
+            return sqlserverSessionFactory;
+        }
         InputStream inputStream;
         try {
             inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
-            sqlServerSessionFactory = new SqlSessionFactoryBuilder().build(inputStream,"development2");
+            sqlserverSessionFactory = new SqlSessionFactoryBuilder().build(inputStream,"development2");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return sqlServerSessionFactory;
+        return sqlserverSessionFactory;
     }
     public static SqlSessionFactory getXzjxhSessionFactory() {
-        SqlSessionFactory sqlServerSessionFactory = null;
+        if (sqlXzjxhSessionFactory != null) {
+            return sqlXzjxhSessionFactory;
+        }
         InputStream inputStream;
         try {
             inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
-            sqlServerSessionFactory = new SqlSessionFactoryBuilder().build(inputStream,"developmentxzjxh");
+            sqlXzjxhSessionFactory = new SqlSessionFactoryBuilder().build(inputStream,"developmentxzjxh");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return sqlServerSessionFactory;
+        return sqlXzjxhSessionFactory;
     }
     public static SqlSessionFactory getZNWGSessionFactory() {
-        SqlSessionFactory sqlServerSessionFactory = null;
+        if (sqlZNWGSessionFactory != null) {
+            return sqlZNWGSessionFactory;
+        }
         InputStream inputStream;
         try {
             inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
-            sqlServerSessionFactory = new SqlSessionFactoryBuilder().build(inputStream,"development127");
+            sqlZNWGSessionFactory = new SqlSessionFactoryBuilder().build(inputStream,"development127");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return sqlServerSessionFactory;
+        return sqlZNWGSessionFactory;
+
+    }
+    public static SqlSessionFactory getECFactory() {
+        if (sqlECFactory != null) {
+            return sqlECFactory;
+        }
+        InputStream inputStream;
+        try {
+            inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
+            sqlECFactory = new SqlSessionFactoryBuilder().build(inputStream,"developmentEC");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sqlECFactory;
 
     }
 }

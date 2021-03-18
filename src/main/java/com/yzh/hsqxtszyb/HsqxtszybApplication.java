@@ -9,5 +9,4 @@ public class HsqxtszybApplication {
     public static void main(String[] args) {
         SpringApplication.run(HsqxtszybApplication.class, args);
     }
-
 }

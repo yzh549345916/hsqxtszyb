@@ -25,4 +25,9 @@ public class MapDataController {
     public OpenlayersQJMethodBaseModel getzdybByTypeStationsTimeSx(@RequestParam("YBType") String YBType, @RequestParam("DataTypeID") String DataTypeID, @RequestParam("StationTye") String StationTye, @RequestParam("DQID") String DQID, @RequestParam("times") long times,@RequestParam("YbSx") int YbSx,@RequestParam("stationlevelType") int stationlevelType,@RequestParam("stationlevel") double stationlevel) {
         return mapService.获取站点预报数据(YBType,DataTypeID,StationTye,DQID,times,YbSx,stationlevelType,stationlevel);
     }
+    @CrossOrigin
+    @GetMapping("/api/getzdybByTypeStationsQBTime")
+    public 地图站点详情Model getzdybByTypeStationsQBTime(@RequestParam("YBType") String YBType, @RequestParam("DataTypeID") String DataTypeID, @RequestParam("StationID") String StationID,  @RequestParam("times") long times,  @RequestParam("stationlevelType") int stationlevelType,  @RequestParam("stationlevel") int stationlevel) {
+        return mapService.获取站点预报详情(YBType,DataTypeID,StationID,times,stationlevelType,stationlevel);
+    }
 }
