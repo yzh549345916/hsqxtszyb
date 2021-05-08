@@ -3,8 +3,11 @@ package com.yzh.hsqxtszyb.service;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.yzh.hsqxtszyb.cimiss.地面实况数据类型转换;
 import com.yzh.hsqxtszyb.cimiss.风向风速转换;
 import com.yzh.hsqxtszyb.dao.StationDaoImpl;
@@ -12,6 +15,7 @@ import com.yzh.hsqxtszyb.model.*;
 import com.yzh.hsqxtszyb.model.EC.ECDataModel;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -262,6 +266,31 @@ public class MapService {
         //获取站点预报数据("EC","4100","区域站","150121,150123",1615852800000L,12,103,0);
         获取站点预报详情("EC","4100","53466",1615852800000L,103,0);
     }
+    public String 获取风流场Json(String YBType, long times, int YbSx, int stationlevelType, double stationlevel,double dlat)
+    {
+       try{
+           DateTime myDate = DateUtil.date(times);
+           if(YBType.contains("RMAPS")){
+               if(stationlevel==0&&stationlevelType==103){
+                   SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+                   SimpleDateFormat df2 = new SimpleDateFormat("yyyyMMddHH");
+                   String datePath1 = df.format(myDate);
+                   String timePath1 = df2.format(myDate);
+                   String myFilePath= StrUtil.format("/home/qxt/区台数值预报文件/szyb/json/rmaps数据/风流场/{}/RMAPS_wind_{}_{}_{}.json", datePath1,dlat,timePath1,String.format("%04d", YbSx) );;
+                   if(FileUtil.exist(myFilePath)){
+                       return FileUtil.readUtf8String(myFilePath);
+                   }
+                   else{
+                       return myFilePath;
+                   }
+               }
+           }
+           return "";
+       } catch (IORuntimeException e) {
+           e.printStackTrace();
+           return "";
+       }
+    }
     public List<站点信息> 根据ID获取EC站点(String ID, String StationType) {
         web站点检索Model myweb站点信息 = new web站点检索Model();
         List<站点信息> stat = new ArrayList<>();
@@ -408,7 +437,7 @@ public class MapService {
                     }
                     for (int i = 0; i < mydataYBs.size(); i++) {
                         区台格点数值预报站点Model ybls = mydataYBs.get(i);
-                        xqdatas[i]=new 地图站点详情数据内容(Convert.toDouble(ReflectUtil.getFieldValue(ybls, mySzybDataType), (double) -999999),DateUtil.format(DateUtil.offsetHour(ybls.getMyDate(), ybls.getSX()), "MM月dd日HH时"),StationID,stationName);
+                        xqdatas[i]=new 地图站点详情数据内容(NumberUtil.round(Convert.toDouble(ReflectUtil.getFieldValue(ybls, mySzybDataType), (double) -999999),1).doubleValue(),DateUtil.format(DateUtil.offsetHour(ybls.getMyDate(), ybls.getSX()), "MM月dd日HH时"),StationID,stationName);
                     }
                     myData.setDatas(xqdatas);
                     myData.setHeaders(headers);
@@ -464,7 +493,7 @@ public class MapService {
                     }
                     for (int i = 0; i < mydataYBs.size(); i++) {
                         Rmaps格点数值预报站点Model ybls = mydataYBs.get(i);
-                        xqdatas[i]=new 地图站点详情数据内容(Convert.toDouble(ReflectUtil.getFieldValue(ybls, mySzybDataType), (double) -999999),DateUtil.format(DateUtil.offsetHour(ybls.getMyDate(), ybls.getSX()), "MM月dd日HH时"),StationID,stationName);
+                        xqdatas[i]=new 地图站点详情数据内容(NumberUtil.round(Convert.toDouble(ReflectUtil.getFieldValue(ybls, mySzybDataType), (double) -999999),1).doubleValue(),DateUtil.format(DateUtil.offsetHour(ybls.getMyDate(), ybls.getSX()), "MM月dd日HH时"),StationID,stationName);
                     }
                     myData.setDatas(xqdatas);
                     myData.setHeaders(headers);
@@ -529,7 +558,7 @@ public class MapService {
                     }
                     for (int i = 0; i < mydataYBs.size(); i++) {
                         ECDataModel ybls = mydataYBs.get(i);
-                        xqdatas[i]=new 地图站点详情数据内容(Convert.toDouble(ReflectUtil.getFieldValue(ybls, mySzybDataType), (double) -999999),DateUtil.format(DateUtil.offsetHour(ybls.getMyDate(), ybls.getSX()), "MM月dd日HH时"),StationID,stationName);
+                        xqdatas[i]=new 地图站点详情数据内容(NumberUtil.round(Convert.toDouble(ReflectUtil.getFieldValue(ybls, mySzybDataType), (double) -999999),1).doubleValue(),DateUtil.format(DateUtil.offsetHour(ybls.getMyDate(), ybls.getSX()), "MM月dd日HH时"),StationID,stationName);
                     }
                     myData.setDatas(xqdatas);
                     myData.setHeaders(headers);

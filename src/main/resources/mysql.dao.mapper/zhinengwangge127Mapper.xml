@@ -12,6 +12,4 @@
         SELECT * FROM 全国智能网格预报服务产品3h240 WHERE [StatioID] IN (${StatioID}) AND SC = #{SC} AND SX &gt;= #{MinSX} AND SX &lt;= #{MaxSX} AND Date=#{Date}
     </select>
 
-
-
 </mapper>
