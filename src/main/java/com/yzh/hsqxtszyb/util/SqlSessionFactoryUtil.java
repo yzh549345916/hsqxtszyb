@@ -14,6 +14,7 @@ public class SqlSessionFactoryUtil {
     private static SqlSessionFactory sqlXzjxhSessionFactory;
     private static SqlSessionFactory sqlZNWGSessionFactory;
     private static SqlSessionFactory sqlECFactory;
+    private static SqlSessionFactory sqlHuanJingFactory;
     /**
      * 每个基于 MyBatis 的应用都是以一个 SqlSessionFactory 的实例为中心的。
      * SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 获得。
@@ -35,6 +36,19 @@ public class SqlSessionFactoryUtil {
             e.printStackTrace();
         }
         return sqlSessionFactory;
+    }
+    public static SqlSessionFactory getSqlHuanjingSessionFactory() {
+        if (sqlHuanJingFactory != null) {
+            return sqlHuanJingFactory;
+        }
+        InputStream inputStream;
+        try {
+            inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
+            sqlHuanJingFactory = new SqlSessionFactoryBuilder().build(inputStream,"developmentHuanJing");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sqlHuanJingFactory;
     }
     public static SqlSessionFactory getSqlServerSessionFactory() {
         if (sqlserverSessionFactory != null) {
