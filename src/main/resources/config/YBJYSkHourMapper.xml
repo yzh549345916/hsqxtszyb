@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzh.hsqxtszyb.mapper.YBJYSkHourMapper">
+  <resultMap id="selectTemAndStationIdCAndDatetimeResult"
+             type="com.yzh.hsqxtszyb.mapper.SelectYBJYSKAndStationIdCAndDatetimeResult">
+    <result column="TEM" property="elementValue"/>
+    <result column="Station_Id_C" property="stationIdC"/>
+    <result column="Datetime" property="datetime"/>
+  </resultMap>
+  <resultMap id="selectDPTAndStationIdCAndDatetimeResult"
+             type="com.yzh.hsqxtszyb.mapper.SelectYBJYSKAndStationIdCAndDatetimeResult">
+    <result column="DPT" property="elementValue"/>
+    <result column="Station_Id_C" property="stationIdC"/>
+    <result column="Datetime" property="datetime"/>
+  </resultMap>
+  <resultMap id="selectRHUAndStationIdCAndDatetimeResult"
+             type="com.yzh.hsqxtszyb.mapper.SelectYBJYSKAndStationIdCAndDatetimeResult">
+    <result column="RHU" property="elementValue"/>
+    <result column="Station_Id_C" property="stationIdC"/>
+    <result column="Datetime" property="datetime"/>
+  </resultMap>
+  <resultMap id="selectPREAndStationIdCAndDatetimeResult"
+             type="com.yzh.hsqxtszyb.mapper.SelectYBJYSKAndStationIdCAndDatetimeResult">
+    <result column="PRE_1h" property="elementValue"/>
+    <result column="Station_Id_C" property="stationIdC"/>
+    <result column="Datetime" property="datetime"/>
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.yzh.hsqxtszyb.model.huanbao.YBJYSkHour">
+    <!--@mbg.generated-->
+    <!--@Table SK_Hour-->
+    <id column="Station_Id_C" jdbcType="VARCHAR" property="stationIdC" />
+    <id column="Datetime" jdbcType="TIMESTAMP" property="datetime" />
+    <result column="TEM" jdbcType="DOUBLE" property="tem" />
+    <result column="DPT" jdbcType="DOUBLE" property="dpt" />
+    <result column="RHU" jdbcType="DOUBLE" property="rhu" />
+    <result column="PRE_1h" jdbcType="DOUBLE" property="pre1h" />
+    <result column="WIN_D_Avg_10mi" jdbcType="DOUBLE" property="winDAvg10mi" />
+    <result column="WIN_S_Avg_10mi" jdbcType="DOUBLE" property="winSAvg10mi" />
+    <result column="WIN_D_S_Max" jdbcType="DOUBLE" property="winDSMax" />
+    <result column="WIN_S_Max" jdbcType="DOUBLE" property="winSMax" />
+    <result column="WIN_D_INST_Max" jdbcType="DOUBLE" property="winDInstMax" />
+    <result column="WIN_S_Inst_Max" jdbcType="DOUBLE" property="winSInstMax" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    Station_Id_C, `Datetime`, TEM, DPT, RHU, PRE_1h, WIN_D_Avg_10mi, WIN_S_Avg_10mi, 
+    WIN_D_S_Max, WIN_S_Max, WIN_D_INST_Max, WIN_S_Inst_Max
+  </sql>
+
+
+  <select id="selectTemByDatetimeBetweenEqualAndStationIdCInAndTemIsNotNullAndTemLessThan"
+          resultMap="selectTemAndStationIdCAndDatetimeResult">
+    select TEM, Station_Id_C, `Datetime`
+    from ybjianyan.SK_Hour_${year}
+    where `Datetime` <![CDATA[>=]]> #{minDatetime,jdbcType=TIMESTAMP} and `Datetime` <![CDATA[<=]]>
+    #{maxDatetime,jdbcType=TIMESTAMP} and Station_Id_C in
+    <foreach item="item" index="index" collection="stationIdCCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and TEM is not null and TEM <![CDATA[<]]> 999990 and TEM <![CDATA[>]]> -999990
+  </select>
+  <select id="selectDPTByDatetimeBetweenEqualAndStationIdCInAndDPTIsNotNull"
+          resultMap="selectDPTAndStationIdCAndDatetimeResult">
+    select DPT, Station_Id_C, `Datetime`
+    from ybjianyan.SK_Hour_${year}
+    where `Datetime` <![CDATA[>=]]> #{minDatetime,jdbcType=TIMESTAMP} and `Datetime` <![CDATA[<=]]>
+    #{maxDatetime,jdbcType=TIMESTAMP} and Station_Id_C in
+    <foreach item="item" index="index" collection="stationIdCCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and DPT is not null and DPT <![CDATA[<]]> 999990 and DPT <![CDATA[>]]> -999990
+  </select>
+  <select id="selectRHUByDatetimeBetweenEqualAndStationIdCInAndRHUIsNotNull"
+          resultMap="selectRHUAndStationIdCAndDatetimeResult">
+    select RHU, Station_Id_C, `Datetime`
+    from ybjianyan.SK_Hour_${year}
+    where `Datetime` <![CDATA[>=]]> #{minDatetime,jdbcType=TIMESTAMP} and `Datetime` <![CDATA[<=]]>
+    #{maxDatetime,jdbcType=TIMESTAMP} and Station_Id_C in
+    <foreach item="item" index="index" collection="stationIdCCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and RHU is not null and RHU <![CDATA[<]]> 999990 and RHU <![CDATA[>]]> -999990
+  </select>
+  <select id="selectPREByDatetimeBetweenEqualAndStationIdCInAndPREIsNotNull"
+          resultMap="selectPREAndStationIdCAndDatetimeResult">
+    select PRE_1h, Station_Id_C, `Datetime`
+    from ybjianyan.SK_Hour_${year}
+    where `Datetime` <![CDATA[>=]]> #{minDatetime,jdbcType=TIMESTAMP} and `Datetime` <![CDATA[<=]]>
+    #{maxDatetime,jdbcType=TIMESTAMP} and Station_Id_C in
+    <foreach item="item" index="index" collection="stationIdCCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and PRE_1h is not null and PRE_1h <![CDATA[<]]> 999990 and PRE_1h <![CDATA[>]]> -999990
+  </select>
+
+</mapper>

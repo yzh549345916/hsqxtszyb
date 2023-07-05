@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzh.hsqxtszyb.mapper.DuoYuanRongHeSKMapper">
+  <resultMap id="selectTemAndStationIdCAndDatetimeResult"
+             type="com.yzh.hsqxtszyb.mapper.SelectYBJYSKAndStationIdCAndDatetimeResult">
+    <result column="t" property="elementValue"/>
+    <result column="stationid" property="stationIdC"/>
+    <result column="mydatetime" property="datetime"/>
+  </resultMap>
+  <resultMap id="selectDPTAndStationIdCAndDatetimeResult"
+             type="com.yzh.hsqxtszyb.mapper.SelectYBJYSKAndStationIdCAndDatetimeResult">
+    <result column="td" property="elementValue"/>
+    <result column="stationid" property="stationIdC"/>
+    <result column="mydatetime" property="datetime"/>
+  </resultMap>
+  <resultMap id="selectRHUAndStationIdCAndDatetimeResult"
+             type="com.yzh.hsqxtszyb.mapper.SelectYBJYSKAndStationIdCAndDatetimeResult">
+    <result column="rh" property="elementValue"/>
+    <result column="stationid" property="stationIdC"/>
+    <result column="mydatetime" property="datetime"/>
+  </resultMap>
+  <resultMap id="selectPREAndStationIdCAndDatetimeResult"
+             type="com.yzh.hsqxtszyb.mapper.SelectYBJYSKAndStationIdCAndDatetimeResult">
+    <result column="r1" property="elementValue"/>
+    <result column="stationid" property="stationIdC"/>
+    <result column="mydatetime" property="datetime"/>
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.yzh.hsqxtszyb.model.huanbao.DuoYuanRongHeSK">
+    <!--@mbg.generated-->
+    <!--@Table DuoYuanRongHeSK-->
+    <id column="mydatetime" jdbcType="TIMESTAMP" property="mydatetime" />
+    <id column="stationid" jdbcType="VARCHAR" property="stationid" />
+    <result column="msl" jdbcType="DOUBLE" property="msl" />
+    <result column="ps" jdbcType="DOUBLE" property="ps" />
+    <result column="rh" jdbcType="DOUBLE" property="rh" />
+    <result column="t" jdbcType="DOUBLE" property="t" />
+    <result column="td" jdbcType="DOUBLE" property="td" />
+    <result column="u" jdbcType="DOUBLE" property="u" />
+    <result column="v" jdbcType="DOUBLE" property="v" />
+    <result column="r1" jdbcType="DOUBLE" property="r1" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    mydatetime, stationid, msl, ps, rh, t, td, u, v, r1
+  </sql>
+
+  <select id="selectTByMydatetimeBetweenEqualAndStationidInAndTIsNotNull"
+          resultMap="selectTemAndStationIdCAndDatetimeResult">
+    select t, stationid, `mydatetime`
+    from ybjianyan.DuoYuanRongHeSK_${year}
+    where `mydatetime` <![CDATA[>=]]> #{minMydatetime,jdbcType=TIMESTAMP} and `mydatetime` <![CDATA[<=]]>
+    #{maxMydatetime,jdbcType=TIMESTAMP} and stationid in
+    <foreach item="item" index="index" collection="stationidCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and t is not null and t <![CDATA[<]]> 9990 and t <![CDATA[>]]> -9990
+  </select>
+  <select id="selectTdByMydatetimeBetweenEqualAndStationidInAndTdIsNotNull"
+          resultMap="selectDPTAndStationIdCAndDatetimeResult">
+    select td, stationid, `mydatetime`
+    from ybjianyan.DuoYuanRongHeSK_${year}
+    where `mydatetime` <![CDATA[>=]]> #{minMydatetime,jdbcType=TIMESTAMP} and `mydatetime` <![CDATA[<=]]>
+    #{maxMydatetime,jdbcType=TIMESTAMP} and stationid in
+    <foreach item="item" index="index" collection="stationidCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and td is not null and td <![CDATA[<]]> 9990 and td <![CDATA[>]]> -9990
+  </select>
+  <select id="selectRHByMydatetimeBetweenEqualAndStationidInAndRHIsNotNull"
+          resultMap="selectRHUAndStationIdCAndDatetimeResult">
+    select rh, stationid, `mydatetime`
+    from ybjianyan.DuoYuanRongHeSK_${year}
+    where `mydatetime` <![CDATA[>=]]> #{minMydatetime,jdbcType=TIMESTAMP} and `mydatetime` <![CDATA[<=]]>
+    #{maxMydatetime,jdbcType=TIMESTAMP} and stationid in
+    <foreach item="item" index="index" collection="stationidCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and rh is not null and rh <![CDATA[<]]> 9990 and rh <![CDATA[>]]> -9990
+  </select>
+  <select id="selectR1ByMydatetimeBetweenEqualAndStationidInAndR1IsNotNull"
+          resultMap="selectPREAndStationIdCAndDatetimeResult">
+    select r1, stationid, `mydatetime`
+    from ybjianyan.DuoYuanRongHeSK_${year}
+    where `mydatetime` <![CDATA[>=]]> #{minMydatetime,jdbcType=TIMESTAMP} and `mydatetime` <![CDATA[<=]]>
+    #{maxMydatetime,jdbcType=TIMESTAMP} and stationid in
+    <foreach item="item" index="index" collection="stationidCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and r1 is not null and r1 <![CDATA[<]]> 9990 and r1 <![CDATA[>]]> -9990
+  </select>
+  <resultMap id="DuoYuanRongHeJoinSK1h" type="com.yzh.hsqxtszyb.model.ZNWG.DuoYuanRongHeJoinSK1h">
+    <result column="mydatetime" property="mydatetime"/>
+    <result column="stationid" property="stationid"/>
+    <result column="msl" property="msl"/>
+    <result column="ps" property="ps"/>
+    <result column="rh" property="rh"/>
+    <result column="t" property="t"/>
+    <result column="td" property="td"/>
+    <result column="u" property="u"/>
+    <result column="v" property="v"/>
+    <result column="r1" property="r1"/>
+    <collection property="skList" ofType="com.yzh.hsqxtszyb.model.huanbao.YBJYSkHour" columnPrefix="SK_Hour_">
+      <result column="Station_Id_C" property="stationIdC"/>
+      <result column="Datetime" property="datetime"/>
+      <result column="TEM" property="tem"/>
+      <result column="DPT" property="dpt"/>
+      <result column="RHU" property="rhu"/>
+      <result column="PRE_1h" property="pre1h"/>
+      <result column="WIN_D_Avg_10mi" property="winDAvg10mi"/>
+      <result column="WIN_S_Avg_10mi" property="winSAvg10mi"/>
+      <result column="WIN_D_S_Max" property="winDSMax"/>
+      <result column="WIN_S_Max" property="winSMax"/>
+      <result column="WIN_D_INST_Max" property="winDInstMax"/>
+      <result column="WIN_S_Inst_Max" property="winSInstMax"/>
+    </collection>
+  </resultMap>
+  <resultMap id="DuoYuanRongHeJoinSK1h_R1" type="com.yzh.hsqxtszyb.model.预报检验.多元融合检验结果">
+    <result column="mydatetime" property="datetime"/>
+    <result column="stationid" property="stationIdC"/>
+    <result column="r1" property="DYSKValue"/>
+    <result column="SK_Hour_PRE_1h" property="StationSKValue"/>
+  </resultMap>
+  <resultMap id="DuoYuanRongHeJoinSK1h_Td" type="com.yzh.hsqxtszyb.model.预报检验.多元融合检验结果">
+    <result column="mydatetime" property="datetime"/>
+    <result column="stationid" property="stationIdC"/>
+    <result column="td" property="DYSKValue"/>
+    <result column="SK_Hour_DPT" property="StationSKValue"/>
+  </resultMap>
+  <resultMap id="DuoYuanRongHeJoinSK1h_T" type="com.yzh.hsqxtszyb.model.预报检验.多元融合检验结果">
+    <result column="mydatetime" property="datetime"/>
+    <result column="stationid" property="stationIdC"/>
+    <result column="t" property="DYSKValue"/>
+    <result column="SK_Hour_TEM" property="StationSKValue"/>
+  </resultMap>
+  <resultMap id="DuoYuanRongHeJoinSK1h_RH" type="com.yzh.hsqxtszyb.model.预报检验.多元融合检验结果">
+    <result column="mydatetime" property="datetime"/>
+    <result column="stationid" property="stationIdC"/>
+    <result column="rh" property="DYSKValue"/>
+    <result column="SK_Hour_RHU" property="StationSKValue"/>
+  </resultMap>
+  <select id="selectR1ByMydatetimeBetweenEqualAndStationidInJoinSK" resultMap="DuoYuanRongHeJoinSK1h_R1">
+    select DuoYuanRongHeSK_${year}.mydatetime,DuoYuanRongHeSK_${year}.stationid,DuoYuanRongHeSK_${year}.r1
+            ,SK_Hour_${year}.PRE_1h as SK_Hour_PRE_1h
+    from ybjianyan.DuoYuanRongHeSK_${year}
+    inner join ybjianyan.SK_Hour_${year} on DuoYuanRongHeSK_${year}.mydatetime=SK_Hour_${year}.Datetime and DuoYuanRongHeSK_${year}.stationid=SK_Hour_${year}.Station_Id_C
+    and `mydatetime` <![CDATA[>=]]> #{minMydatetime,jdbcType=TIMESTAMP} and `mydatetime` <![CDATA[<=]]>
+    #{maxMydatetime,jdbcType=TIMESTAMP} and stationid in
+    <foreach item="item" index="index" collection="stationidCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and r1 is not null and r1 <![CDATA[<]]> 9990 and r1 <![CDATA[>]]> -9990
+    and SK_Hour_${year}.PRE_1h is not null and SK_Hour_${year}.PRE_1h <![CDATA[<]]> 9990 and SK_Hour_${year}.PRE_1h <![CDATA[>]]> -9990
+  </select>
+  <select id="selectTdByMydatetimeBetweenEqualAndStationidInJoinSK" resultMap="DuoYuanRongHeJoinSK1h_Td">
+    select DuoYuanRongHeSK_${year}.mydatetime,DuoYuanRongHeSK_${year}.stationid,DuoYuanRongHeSK_${year}.td
+    ,SK_Hour_${year}.DPT as SK_Hour_DPT
+    from ybjianyan.DuoYuanRongHeSK_${year}
+    inner join ybjianyan.SK_Hour_${year} on DuoYuanRongHeSK_${year}.mydatetime=SK_Hour_${year}.Datetime and DuoYuanRongHeSK_${year}.stationid=SK_Hour_${year}.Station_Id_C
+    and `mydatetime` <![CDATA[>=]]> #{minMydatetime,jdbcType=TIMESTAMP} and `mydatetime` <![CDATA[<=]]>
+    #{maxMydatetime,jdbcType=TIMESTAMP} and stationid in
+    <foreach item="item" index="index" collection="stationidCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and td is not null and td <![CDATA[<]]> 9990 and td <![CDATA[>]]> -9990
+    and SK_Hour_${year}.DPT is not null and SK_Hour_${year}.DPT <![CDATA[<]]> 9990 and SK_Hour_${year}.DPT <![CDATA[>]]> -9990
+  </select>
+  <select id="selectTByMydatetimeBetweenEqualAndStationidInJoinSK" resultMap="DuoYuanRongHeJoinSK1h_T">
+    select DuoYuanRongHeSK_${year}.mydatetime,DuoYuanRongHeSK_${year}.stationid,DuoYuanRongHeSK_${year}.t
+    ,SK_Hour_${year}.TEM as SK_Hour_TEM
+    from ybjianyan.DuoYuanRongHeSK_${year}
+    inner join ybjianyan.SK_Hour_${year} on DuoYuanRongHeSK_${year}.mydatetime=SK_Hour_${year}.Datetime and DuoYuanRongHeSK_${year}.stationid=SK_Hour_${year}.Station_Id_C
+    and `mydatetime` <![CDATA[>=]]> #{minMydatetime,jdbcType=TIMESTAMP} and `mydatetime` <![CDATA[<=]]>
+    #{maxMydatetime,jdbcType=TIMESTAMP} and stationid in
+    <foreach item="item" index="index" collection="stationidCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and t is not null and t <![CDATA[<]]> 9990 and t <![CDATA[>]]> -9990
+    and SK_Hour_${year}.TEM is not null and SK_Hour_${year}.TEM <![CDATA[<]]> 9990 and SK_Hour_${year}.TEM <![CDATA[>]]> -9990
+  </select>
+  <select id="selectRHByMydatetimeBetweenEqualAndStationidInJoinSK" resultMap="DuoYuanRongHeJoinSK1h_RH">
+    select DuoYuanRongHeSK_${year}.mydatetime,DuoYuanRongHeSK_${year}.stationid,DuoYuanRongHeSK_${year}.rh
+    ,SK_Hour_${year}.RHU as SK_Hour_RHU
+    from ybjianyan.DuoYuanRongHeSK_${year}
+    inner join ybjianyan.SK_Hour_${year} on DuoYuanRongHeSK_${year}.mydatetime=SK_Hour_${year}.Datetime and DuoYuanRongHeSK_${year}.stationid=SK_Hour_${year}.Station_Id_C
+    and `mydatetime` <![CDATA[>=]]> #{minMydatetime,jdbcType=TIMESTAMP} and `mydatetime` <![CDATA[<=]]>
+    #{maxMydatetime,jdbcType=TIMESTAMP} and stationid in
+    <foreach item="item" index="index" collection="stationidCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+    and rh is not null and rh <![CDATA[<]]> 9990 and rh <![CDATA[>]]> -9990
+    and SK_Hour_${year}.RHU is not null and SK_Hour_${year}.RHU <![CDATA[<]]> 9990 and SK_Hour_${year}.RHU <![CDATA[>]]> -9990
+  </select>
+
+  <select id="selectALLByMydatetimeBetweenEqualAndStationidInJoinSK" resultMap="DuoYuanRongHeJoinSK1h">
+    select DuoYuanRongHeSK_2022.mydatetime,DuoYuanRongHeSK_2022.stationid,DuoYuanRongHeSK_2022.msl,DuoYuanRongHeSK_2022.ps,DuoYuanRongHeSK_2022.rh,
+           DuoYuanRongHeSK_2022.t,DuoYuanRongHeSK_2022.td,DuoYuanRongHeSK_2022.u,DuoYuanRongHeSK_2022.v,DuoYuanRongHeSK_2022.r1
+            ,SK_Hour_2022.Station_Id_C as SK_Hour_Station_Id_C,SK_Hour_2022.Datetime as SK_Hour_Datetime,SK_Hour_2022.TEM as SK_Hour_TEM,
+           SK_Hour_2022.DPT as SK_Hour_DPT,SK_Hour_2022.RHU as SK_Hour_RHU,SK_Hour_2022.PRE_1h as SK_Hour_PRE_1h,SK_Hour_2022.WIN_D_Avg_10mi as SK_Hour_WIN_D_Avg_10mi,
+           SK_Hour_2022.WIN_S_Avg_10mi as SK_Hour_WIN_S_Avg_10mi,SK_Hour_2022.WIN_D_S_Max as SK_Hour_WIN_D_S_Max,SK_Hour_2022.WIN_S_Max as SK_Hour_WIN_S_Max,
+           SK_Hour_2022.WIN_D_INST_Max as SK_Hour_WIN_D_INST_Max,SK_Hour_2022.WIN_S_Inst_Max as SK_Hour_WIN_S_Inst_Max
+    from ybjianyan.DuoYuanRongHeSK_2022 join ybjianyan.SK_Hour_2022 on DuoYuanRongHeSK_2022.mydatetime=SK_Hour_2022.Datetime and DuoYuanRongHeSK_2022.stationid=SK_Hour_2022.Station_Id_C
+  </select>
+</mapper>
