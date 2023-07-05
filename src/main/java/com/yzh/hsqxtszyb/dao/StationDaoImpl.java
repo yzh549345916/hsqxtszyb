@@ -51,7 +51,6 @@ public class StationDaoImpl extends BaseDaoImpl implements StationDao {
             ) {
                 station.setHasChildren(true);
             }
-            stations.size();
         } finally {
             sqlSession.close();
         }

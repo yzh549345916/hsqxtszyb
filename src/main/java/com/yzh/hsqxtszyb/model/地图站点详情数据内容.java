@@ -3,7 +3,29 @@ package com.yzh.hsqxtszyb.model;
 public class 地图站点详情数据内容 {
     private  double skValue1;
     private  double ybValue1;
+    private  double ybValue4;
     private  String ybValue2;
+
+    public 地图站点详情数据内容(double skValue1, double ybValue1, double ybValue4, String timeStr, String stationID) {
+        this.skValue1 = skValue1;
+        this.ybValue1 = ybValue1;
+        this.ybValue4 = ybValue4;
+        this.timeStr = timeStr;
+        this.stationID = stationID;
+    }
+    public 地图站点详情数据内容(String timeStr,double ybValue1 ,String ybValue2, String ybValue3) {
+        this.ybValue1 = ybValue1;
+        this.ybValue2 = ybValue2;
+        this.ybValue3 = ybValue3;
+        this.timeStr = timeStr;
+    }
+    public double getYbValue4() {
+        return ybValue4;
+    }
+
+    public void setYbValue4(double ybValue4) {
+        this.ybValue4 = ybValue4;
+    }
 
     public 地图站点详情数据内容(double ybValue1, String ybValue2, String ybValue3, String timeStr, String stationID, String stationName) {
         this.ybValue1 = ybValue1;
@@ -13,7 +35,6 @@ public class 地图站点详情数据内容 {
         this.stationID = stationID;
         this.stationName = stationName;
     }
-
     public String getYbValue3() {
         return ybValue3;
     }

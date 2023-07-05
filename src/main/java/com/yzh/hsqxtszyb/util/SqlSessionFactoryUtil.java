@@ -104,4 +104,18 @@ public class SqlSessionFactoryUtil {
         return sqlECFactory;
 
     }
+    private static SqlSessionFactory sqlZNWG203SessionFactory;
+    public static SqlSessionFactory getZNWG203SessionFactory() {
+        if (sqlZNWG203SessionFactory != null) {
+            return sqlZNWG203SessionFactory;
+        }
+        InputStream inputStream;
+        try {
+            inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
+            sqlZNWG203SessionFactory = new SqlSessionFactoryBuilder().build(inputStream,"developmentZNWG203");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sqlZNWG203SessionFactory;
+    }
 }

@@ -77,4 +77,45 @@ public class 基本处理 {
                 return "";
         }
     }
+    public static String 京津冀模式中文名称(String dataTypeStr){
+        switch (dataTypeStr){
+            case  "o3" :
+                return "臭氧";
+            case  "pm25" :
+                return "PM2.5";
+            case  "pm10" :
+                return "PM10";
+            case  "aqi" :
+                return "AQI";
+            case  "co" :
+                return "一氧化碳";
+            case  "pblh" :
+                return "边界层高度";
+            case  "no2" :
+                return "二氧化氮";
+            case  "so2" :
+                return "二氧化硫";
+            case  "vis1" :
+                return "能见度";
+            default:
+                return "";
+        }
+    }
+    public static String 京津冀模式单位获取(String dataTypeStr){
+        switch (dataTypeStr){
+            case  "vis1" :
+                return "km";
+            case  "o3" :
+            case  "pm25" :
+            case  "pm10" :
+            case  "co" :
+            case  "no2" :
+            case  "so2" :
+                return "ug/m3";
+            case  "pblh" :
+                return "m";
+            default:
+                return "-";
+        }
+    }
 }

@@ -6,21 +6,22 @@ public class OpenlayersQJMethodPropertiesModel {
 
 
 
-    public int getStationLevel() {
+    public Integer getStationLevel() {
         return StationLevel;
     }
 
-    public void setStationLevel(int stationLevel) {
+    public void setStationLevel(Integer stationLevel) {
         StationLevel = stationLevel;
     }
 
-    private int StationLevel;
+    private Integer StationLevel;
     public OpenlayersQJMethodPropertiesModel(String name, String id, double ybvalue, String ybName, String ybUnit) {
         this.name = name;
         this.id = id;
         this.ybvalue = ybvalue;
         this.ybName = ybName;
         this.ybUnit = ybUnit;
+
     }
     public OpenlayersQJMethodPropertiesModel(String name, String id, int stationLevel, double ybvalue, String ybName, String ybUnit) {
         this.name = name;
@@ -81,7 +82,11 @@ public class OpenlayersQJMethodPropertiesModel {
         this.ybName2 = ybName2;
         this.ybUnit2 = ybUnit2;
     }
-
+    public OpenlayersQJMethodPropertiesModel( double ybvalue, double ybvalue2) {
+        this.ybvalue = ybvalue;
+        this.ybvalue2 = ybvalue2;
+        setStationLevel(null);
+    }
 
     public String getYbName2() {
         return ybName2;

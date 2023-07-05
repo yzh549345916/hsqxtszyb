@@ -32,7 +32,7 @@ public class Cimiss地面实况 {
         /* 2. 调用方法的参数定义，并赋值 */
         /* 2.1 用户名&密码 */
         String userId = "BEHT_BFHT_2131" ;
-        String pwd = "YZHHGDJM" ;
+        String pwd = "YZH123456wq_" ;
         /* 2.2  接口ID */
         String interfaceId = "getSurfEleByTimeRangeAndStaID" ;
         /* 2.3  接口参数，多个参数间无顺序 */
@@ -96,7 +96,7 @@ public class Cimiss地面实况 {
         /* 2. 调用方法的参数定义，并赋值 */
         /* 2.1 用户名&密码 */
         String userId = "BEHT_BFHT_2131" ;
-        String pwd = "YZHHGDJM" ;
+        String pwd = "YZH123456wq_" ;
         /* 2.2  接口ID */
         String interfaceId = "getSurfEleByTimeAndStaID" ;
         /* 2.3  接口参数，多个参数间无顺序 */
@@ -155,7 +155,7 @@ public class Cimiss地面实况 {
         /* 2. 调用方法的参数定义，并赋值 */
         /* 2.1 用户名&密码 */
         String userId = "BEHT_BFHT_2131" ;
-        String pwd = "YZHHGDJM" ;
+        String pwd = "YZH123456wq_" ;
         /* 2.2  接口ID */
         String interfaceId = "getSurfEleByTimeAndStaID" ;
         /* 2.3  接口参数，多个参数间无顺序 */

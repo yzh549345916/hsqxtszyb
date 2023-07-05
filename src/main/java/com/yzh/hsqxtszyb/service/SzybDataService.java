@@ -43,8 +43,6 @@ public class SzybDataService {
         return mydata;
     }
 
-
-
     public List<web站点信息> 根据ID获取地区(String[] ID) {
         web站点信息 myweb站点信息 = new web站点信息();
         if (ID == null) {

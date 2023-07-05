@@ -9,6 +9,7 @@ import com.yzh.hsqxtszyb.cimiss.地面实况数据类型转换;
 import com.yzh.hsqxtszyb.cimiss.风向风速转换;
 import com.yzh.hsqxtszyb.mapper.CuaceHeighMapper;
 import com.yzh.hsqxtszyb.mapper.CuaceSurfaceMapper;
+import com.yzh.hsqxtszyb.mapper.JingjinjiMapper;
 import com.yzh.hsqxtszyb.mapper.qtShaChenMapper;
 import com.yzh.hsqxtszyb.model.*;
 import com.yzh.hsqxtszyb.model.EC.ECDataModel;
@@ -33,6 +34,12 @@ public class ShaChenService {
 
         }else if(YBType.equals("区台沙尘模式")){
             OpenlayersQJMethodModel[] myFeas=区台沙尘模式站点数据处理(myDate,YbSx,DataTypeStr,IsHeigh,Fcstlevel);
+            if(myFeas!=null){
+                myData.setFeatures(myFeas);
+            }
+        }
+        else if(YBType.equals("京津冀")){
+            OpenlayersQJMethodModel[] myFeas=京津冀模式站点数据处理(myDate,YbSx,DataTypeStr);
             if(myFeas!=null){
                 myData.setFeatures(myFeas);
             }
@@ -122,6 +129,33 @@ public class ShaChenService {
         sessionHuanJing.close();
         return null;
     }
+    public OpenlayersQJMethodModel[] 京津冀模式站点数据处理(Date myDate, int YbSx, String DataTypeStr){
+        String units= 基本处理.京津冀模式单位获取(DataTypeStr);
+        String chineseName=基本处理.京津冀模式中文名称(DataTypeStr);
+        SqlSessionFactory sqlSessionFactoryHuanJing = SqlSessionFactoryUtil.getSqlHuanjingSessionFactory();
+        SqlSession sessionHuanJing = sqlSessionFactoryHuanJing.openSession();
+        JingjinjiMapper huanJingDao = sessionHuanJing.getMapper(JingjinjiMapper.class);
+        List<站点信息> stations=huanJingDao.GetStationsByType("JJJ");
+        if(stations.size()>0){
+            List<Jingjinji> myDataLs= huanJingDao.findAllByDatetimeAndValidtimeAndFcstname(DateUtil.format(myDate, "yyyyMM"),myDate,YbSx,DataTypeStr);
+            if(!myDataLs.isEmpty()){
+                OpenlayersQJMethodModel[] myFeas = new OpenlayersQJMethodModel[myDataLs.size()];
+                for(int i=0; i < myDataLs.size(); i++){
+                    try{
+                        Jingjinji datals = myDataLs.get(i);
+                        站点信息 station = stations.stream().filter(y -> y.getID().equals(datals.getStationid())).findFirst().get();
+                        double ybvalue = datals.getFcstvalue();
+                        myFeas[i] = new OpenlayersQJMethodModel("Feature", new OpenlayersgeometryModel("Point", new Double[]{station.getLon(), station.getLat()}), new OpenlayersQJMethodPropertiesModel(station.getName(), station.getID(), station.getStation_levl(), ybvalue, chineseName, units));
+                    } catch (Exception e) {
+
+                    }
+                }
+                return myFeas;
+            }
+        }
+        sessionHuanJing.close();
+        return null;
+    }
     private void 亚洲沙尘模式数据调整(List<CuaceSurface> myDataLs){
         //DDEPO_DUST、LOAD_DUST、WDEPO_DUST单位由kg/m2调整为ug/m2
         for(CuaceSurface item:myDataLs){
@@ -139,6 +173,9 @@ public class ShaChenService {
                 return myData;
             }else if (YBType.equals("区台沙尘模式")) {
                地图站点详情Model myData =区台沙尘模式站点详情数据处理(sdate,StationID,DataTypeStr,IsHeigh,Fcstlevel);
+               return myData;
+           }else if (YBType.equals("京津冀")) {
+               地图站点详情Model myData =京津冀模式站点详情数据处理(sdate,StationID,DataTypeStr);
                return myData;
            }
 
@@ -212,7 +249,39 @@ public class ShaChenService {
         }
         return null;
     }
-
+    public 地图站点详情Model 京津冀模式站点详情数据处理(Date myDate,String StationID, String DataTypeStr){
+        String units= 基本处理.京津冀模式单位获取(DataTypeStr);
+        String chineseName=基本处理.京津冀模式中文名称(DataTypeStr);
+        SqlSessionFactory sqlSessionFactoryHuanJing = SqlSessionFactoryUtil.getSqlHuanjingSessionFactory();
+        SqlSession sessionHuanJing = sqlSessionFactoryHuanJing.openSession();
+        JingjinjiMapper huanJingDao = sessionHuanJing.getMapper(JingjinjiMapper.class);
+        List<Jingjinji> myDataLs= huanJingDao.findAllByStationidAndDatetimeAndFcstname(DateUtil.format(myDate, "yyyyMM"),StationID,myDate,DataTypeStr);
+        if(!myDataLs.isEmpty()){
+            地图站点详情Model myData = new 地图站点详情Model();
+            myData.setTitle(DateUtil.format(myDate, "京津冀模式MM月dd日HH时起报") +  chineseName + "预报");
+            myData.setYb1Name(chineseName);
+            地图站点详情数据内容[] xqdatas=new 地图站点详情数据内容[myDataLs.size()];
+            地图站点详情表头Model[] headers=new 地图站点详情表头Model[4];
+            headers[0]=new 地图站点详情表头Model(true,"center","stationID","站号",true,false,true);
+            headers[1]=new 地图站点详情表头Model(true,"center","stationName","站名",true,false,true);
+            headers[2]=new 地图站点详情表头Model(true,"center","timeStr","时间",true,false,true);
+            headers[3]=new 地图站点详情表头Model(true,"center","ybValue1",chineseName+"("+units+")",true,false,true);
+            List<站点信息> myidList=huanJingDao.GetStationsByTypeAndStationID("JJJ",StationID);
+            String stationName="";
+            if(myidList.size()>0){
+                stationName=myidList.get(0).getName();
+            }
+            for (int i = 0; i < myDataLs.size(); i++) {
+                Jingjinji ybls = myDataLs.get(i);
+                xqdatas[i]=new 地图站点详情数据内容(NumberUtil.round(ybls.getFcstvalue(),2).doubleValue(),DateUtil.format(DateUtil.offsetHour(ybls.getDatetime(), ybls.getValidtime()), "MM月dd日HH时"),StationID,stationName);
+            }
+            myData.setDatas(xqdatas);
+            myData.setHeaders(headers);
+            return myData;
+        }
+        sessionHuanJing.close();
+        return null;
+    }
     public 地图站点详情Model 区台沙尘模式站点详情数据处理(Date myDate,String StationID, String DataTypeStr, Boolean IsHeigh, float Fcstlevel){
         String units= 基本处理.区台沙尘模式单位获取(DataTypeStr);
         String chineseName=基本处理.区台沙尘模式中文名称(DataTypeStr);
@@ -240,7 +309,7 @@ public class ShaChenService {
             }
             for (int i = 0; i < myDataLs.size(); i++) {
                 qtShaChen ybls = myDataLs.get(i);
-                xqdatas[i]=new 地图站点详情数据内容(NumberUtil.round(Convert.toDouble(ReflectUtil.getFieldValue(ybls, DataTypeStr), (double) -999999),2).doubleValue(),DateUtil.format(DateUtil.offsetHour(ybls.getDatetime(), ybls.getValidtime()), "MM月dd日HH时"),StationID,stationName);
+                xqdatas[i]=new 地图站点详情数据内容(NumberUtil.round(ybls.getFcstvalue(),2).doubleValue(),DateUtil.format(DateUtil.offsetHour(ybls.getDatetime(), ybls.getValidtime()), "MM月dd日HH时"),StationID,stationName);
             }
             myData.setDatas(xqdatas);
             myData.setHeaders(headers);
